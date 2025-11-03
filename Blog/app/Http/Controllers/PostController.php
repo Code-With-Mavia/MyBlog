@@ -27,7 +27,7 @@ class PostController extends Controller
         $request ->  validate
         (
     [
-                'user_id' => 'required|exists:users,id',
+                'user_id' => 'required|exists:users,id', // to check it valid exisits in db
                 'title'   => 'required|string|max:255',
                 'body'    => 'required|string',
             ]
@@ -36,9 +36,9 @@ class PostController extends Controller
         DB::table('posts') ->  insert
         (
     [
-                'user_id'    => $request -> input('user_id'),
-                'title'      => $request -> input('title'),
-                'body'       => $request -> input('body'),
+                'user_id' => $request -> input('user_id'),
+                'title' => $request -> input('title'),
+                'body' => $request -> input('body'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
@@ -60,15 +60,15 @@ class PostController extends Controller
         $request -> validate(
 [
             'title' => 'required|string|max:255',
-            'body'  => 'required|string',
+            'body' => 'required|string',
         ]);
 
         DB::table('posts')
              ->  where('id', $id)
              ->  update(
     [
-                'title'      => $request ->  input('title'),
-                'body'       => $request ->  input('body'),
+                'title' => $request ->  input('title'),
+                'body' => $request ->  input('body'),
                 'updated_at' => now(),
             ]);
 
