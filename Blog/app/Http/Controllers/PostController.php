@@ -21,13 +21,15 @@ class PostController extends Controller
 
     public function addNewPost(Request $request)
     {
-        $request->validate([
+        $request->validate(
+ [
             'title'   => 'required|string|max:255',
             'body'    => 'required|string',
         ]);
 
         $userId = session('user_id');
-        DB::table('posts')->insert([
+        DB::table('posts')->insert(
+[
             'user_id'    => $userId,
             'title'      => $request->input('title'),
             'body'       => $request->input('body'),
@@ -57,7 +59,8 @@ class PostController extends Controller
         $updated = DB::table('posts')
             ->where('id', $id)
             ->where('user_id', $userId)
-            ->update([
+            ->update(
+    [
                 'title'      => $request->input('title'),
                 'body'       => $request->input('body'),
                 'updated_at' => now(),
