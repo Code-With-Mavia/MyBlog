@@ -19,14 +19,16 @@ Route::controller(UserController::class) -> group
         
     }
 );
-Route::controller(PostController::class)->group(function () {
-    Route::get('posts', 'index')->name('posts.index');
-    Route::get('posts/create', 'showCreateForm')->name('posts.create');
-    Route::post('posts', 'addNewPost')->name('posts.add');
-    Route::get('posts/{id}/edit', 'showEditForm')->name('posts.edit');
-    Route::put('posts/{id}', 'updatePost')->name('posts.update');
-    Route::delete('posts/{id}', 'deletePost')->name('posts.delete');
-});
+Route::controller(PostController::class)->group(function () 
+    {
+        Route::get('posts', 'index') -> name('posts.index');
+        Route::get('posts/create', 'showCreateForm') -> name('posts.create');
+        Route::post('posts', 'addNewPost') -> name('posts.add');
+        Route::get('posts/{id}/edit', 'showEditForm') -> name('posts.edit');
+        Route::put('posts/{id}', 'updatePost') -> name('posts.update');
+        Route::delete('posts/{id}', 'deletePost') -> name('posts.delete');
+    }
+);
 
 
 

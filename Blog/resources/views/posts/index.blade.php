@@ -13,15 +13,19 @@
 <ul>
 @foreach($posts as $post)
     <li>
-        <div class="content-card">
-            <strong>{{ $post->title }}</strong><br>
-            {{ $post->body }} <br>
-            <a href="/posts/{{ $post->id }}/edit">Edit</a>
-            <form action="/posts/{{ $post->id }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" onclick="return confirm('Delete this post?')">Delete</button>
-            </form>
+        <div class="content-row">
+            <div class="card-details">
+                <strong>{{ $post->title }}</strong><br>
+                {{ $post->body }}
+            </div>
+            <div class="card-actions">
+                <a href="/posts/{{ $post->id }}/edit">Edit</a>
+                <form class="inline-action" action="/posts/{{ $post->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Delete this post?')">Delete</button>
+                </form>
+            </div>
         </div>
     </li>
 @endforeach
