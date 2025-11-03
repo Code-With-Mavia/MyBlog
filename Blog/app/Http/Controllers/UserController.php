@@ -12,6 +12,7 @@ class UserController extends Controller
     function getUserInfo()
     {
         $result = DB::table("users") -> get();
+        // return view('users',['users'=>$result]);
         return $result;
     }
 
