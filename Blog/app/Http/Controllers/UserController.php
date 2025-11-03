@@ -15,7 +15,6 @@ class UserController extends Controller
         // return view('users',['users'=>$result]);
         return $result;
     }
-
    
 }
 ?>
