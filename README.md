@@ -5,7 +5,7 @@
 [![Laravel](https://img.shields.io/badge/laravel-12.x-red?logo=laravel)](https://laravel.com/)
 [![MySQL](https://img.shields.io/badge/mysql-8.0-blue?logo=mysql)](https://www.mysql.com/)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/YOUR_USERNAME/laravel-blog/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Code-With-Mavia/My-Blog/pulls)
 [![Open Issues](https://img.shields.io/github/issues/Code-With-Mavia/laravel-blog?color=orange)](https://github.com/Code-With-Mavia/My-Blog/issues)
 [![Last Commit](https://img.shields.io/github/last-commit/Code-With-Mavia/laravel-blog?color=purple)](https://github.com/Code-With-Mavia/My-Blog/commits/main)
 [![Code Style](https://img.shields.io/badge/code%20style-psr12-green.svg)](https://www.php-fig.org/psr/psr-12/)
