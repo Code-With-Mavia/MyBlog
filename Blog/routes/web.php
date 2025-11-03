@@ -7,6 +7,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/user',[UserController::class,'getUser']);
-
+Route::controller(UserController::class)->group(function () {
+    Route::get('user', 'getUser');
+    Route::get('userInfo', 'getUserInfo');
+});
 ?>

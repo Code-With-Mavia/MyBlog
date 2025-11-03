@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     function getUser()
     {
         return "Welcome to my first website";
+    }
+
+    function getUserInfo()
+    {
+        return DB::select('SELECT * FROM USERS');
     }
 }
