@@ -101,15 +101,18 @@ class PostControllerApi extends Controller
         return response()->json($users);
     }
 
-    // GET /api/posts/search?query=keyword
-    // Search posts by title containing a keyword
-    public function searchPosts(Request $request)
+   // GET /api/posts/find?query=keyword
+    // Find posts by title containing a keyword (safe from route collision)
+    public function findPosts(Request $request)
     {
         $query = $request->query('query');
+        if (empty($query)) {
+            return response()->json([]);
+        }
         $posts = DB::table('posts')
-            ->where('title', 'LIKE', "%{$query}%")
+            ->where('title', 'LIKE', '%' . $query . '%')
             ->get();
-        return response()->json($posts);
+        return response()->json($posts); // 200, always returns array
     }
 
     // GET /api/users/{id}/stats

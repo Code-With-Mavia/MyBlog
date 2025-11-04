@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostControllerApi as ApiPostController;
 
-// ================= AUTH & TEST ROUTES =================
+//  AUTH & TEST ROUTES 
 Route::prefix('test')->group(function () {
     // Authenticated user info (Sanctum/JWT, for testing auth)
     // GET /api/test/user
@@ -20,7 +20,7 @@ Route::prefix('test')->group(function () {
 });
 
 
-// ================= POSTS ROUTES =================
+//  POSTS ROUTES 
 Route::prefix('posts')->group(function () {
     // List all posts
     // GET /api/posts
@@ -42,16 +42,16 @@ Route::prefix('posts')->group(function () {
     // DELETE /api/posts/{id}
     Route::delete('/{id}', [ApiPostController::class, 'destroy']);
 
+    // find posts by keyword in their title
+    // GET /api/posts/find?query=keyword
+    Route::get('/find', [ApiPostController::class, 'findPosts']);
+    
     // Get the author/user data for a specific post
     // GET /api/posts/{id}/author
     Route::get('/{id}/author', [ApiPostController::class, 'postAuthor']);
-
-    // Search posts by keyword in their title
-    // GET /api/posts/search?query=keyword
-    Route::get('/search', [ApiPostController::class, 'searchPosts']);
 });
 
-// ================= USERS ROUTES =================
+//  USERS ROUTES 
 Route::prefix('users')->group(function () {
     // Get all posts that belong to a specific user
     // GET /api/users/{id}/posts
