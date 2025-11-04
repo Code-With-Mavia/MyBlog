@@ -110,8 +110,9 @@ class PostControllerApi extends Controller
             return response()->json([]);
         }
         $posts = DB::table('posts')
-            ->where('title', 'LIKE', '%' . $query . '%')
-            ->get();
+        ->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($query) . '%'])
+        ->get();
+
         return response()->json($posts); // 200, always returns array
     }
 
