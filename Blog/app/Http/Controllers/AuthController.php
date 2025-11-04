@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers;
+namespace Laravel_core\MyBlog\Blog\App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\AuthController;
+// use Laravel_core\MyBlog\Blog\App\Http\Controllers\UserController;
+use Laravel_core\MyBlog\Blog\App\Http\Controllers\PostController;
+use Laravel_core\MyBlog\Blog\App\Http\Controllers\AuthController;
 
 // Redirect landing page '/' to login
 Route::get('/', function () {
@@ -11,11 +11,11 @@ Route::get('/', function () {
 });
 
 // User (admin) routes
-Route::controller(UserController::class)->group(function () {
-    Route::get('user', 'getUser');
-    Route::get('userInfo', 'getUserInfo');
-    // Route::get('userName','getUserName');
-});
+// Route::controller(UserController::class)->group(function () {
+//     Route::get('user', 'getUser');
+//     Route::get('userInfo', 'getUserInfo');
+//     // Route::get('userName','getUserName');
+// });
 
 // Auth view routes, no protection (everyone can see login/register)
 Route::get('/login', function () {

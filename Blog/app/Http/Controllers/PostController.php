@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Laravel_core\MyBlog\Blog\App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -76,5 +76,11 @@ class PostController
         $deleted = DB::table('posts')->where('id', $id)->where('user_id', $userId)->delete();
         abort_if(!$deleted, 404);
         return redirect()->route('posts.index');
+    }
+
+    public function listPosts()
+    {
+        $posts = DB::table('posts')->get();
+        return $posts;
     }
 }
