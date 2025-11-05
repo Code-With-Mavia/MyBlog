@@ -24,7 +24,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => "Failed to fetch posts"],500);
+            return response()->json(['error' => "Failed to fetch posts. Please try again later"],500);
             
         }
     }
@@ -39,7 +39,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Post not found'], 404);
+            return response()->json(['error' => 'Post not found. Please try again later'], 404);
         }
     }
 
@@ -59,7 +59,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to create post'], 500);
+            return response()->json(['error' => 'Failed to create post. Please try again later'], 500);
         }
     }
 
@@ -83,7 +83,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to update post'], 500);
+            return response()->json(['error' => 'Failed to update post. Please try again later'], 500);
         }
     }
 
@@ -105,7 +105,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to update comments'], 500);
+            return response()->json(['error' => 'Failed to update comments. Please try again later'], 500);
         }
     }
 
@@ -119,7 +119,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to fetch comments'], 500);
+            return response()->json(['error' => 'Failed to fetch comments. Please try again later'], 500);
         }
     }
 
@@ -137,7 +137,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to delete post'], 500);
+            return response()->json(['error' => 'Failed to delete post. Please try again later'], 500);
 
         }
     }
@@ -162,7 +162,7 @@ class PostControllerApi extends Controller
         catch (\Exception $e) 
         {
             // Responsibility: Unexpected error handling
-            return response()->json(['error' => 'Failed to fetch post author'], 500);
+            return response()->json(['error' => 'Failed to fetch post author. Please try again later'], 500);
         }
     }
 
@@ -182,7 +182,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error'=> 'Failed to search posts'], 500);
+            return response()->json(['error'=> 'Failed to search posts. Please try again later'], 500);
         }
     }
 
@@ -201,7 +201,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to fetch user posts'], 500);
+            return response()->json(['error' => 'Failed to fetch user posts. Please try again later'], 500);
         }
     }
 
@@ -224,7 +224,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error' => 'Failed to fetch recent users'], 500);
+            return response()->json(['error' => 'Failed to fetch recent users. Please try again later'], 500);
         }
     }
 
@@ -245,7 +245,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error'=> 'Failed to fetch user stats'], 500);
+            return response()->json(['error'=> 'Failed to fetch user stats. Please try again later'], 500);
         }
     }
 }
