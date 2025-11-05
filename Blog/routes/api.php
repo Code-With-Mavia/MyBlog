@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\PostControllerApi as ApiPostController;
+use App\Http\Controllers\V1\PostControllerApi as ApiPostController;
 
 //  AUTH & TEST ROUTES 
 Route::prefix('test')->group(function () {
@@ -30,12 +30,19 @@ Route::prefix('posts')->group(function () {
     // GET /api/posts/find?query=keyword
     Route::get('/find', [ApiPostController::class, 'findPosts']);
 
+    ///GET api/posts/comments/
+    Route::get('/comments', [ApiPostController::class,'listComments']);
     // Get the author/user data for a specific post
     // GET /api/posts/{id}/author
     Route::get('/{id}/author', [ApiPostController::class, 'postAuthor']);
+
     // Get one post by ID
     // GET /api/posts/{id}
     Route::get('/{id}', [ApiPostController::class, 'show']);
+
+     // Add a comment to a post
+     // POST /api/posts/comments/id
+     Route::post('/comments/{id}', [ApiPostController::class,'postComments']); 
 
     // Create a new post
     // POST /api/posts
@@ -66,13 +73,6 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}/stats', [ApiPostController::class, 'userStats']);
 });
 
-//  COMMENTS ROUTES 
-// If/when implementation comments API logic, group here:
-Route::prefix('comments')->group(function () {
-    Route::get('/', [ApiPostController::class,'listComments']);
-     // Add a comment to a post
-     // POST /api/comments
-     Route::post('/{id}', [ApiPostController::class,'postComments']); 
- });
+
 
 ?>

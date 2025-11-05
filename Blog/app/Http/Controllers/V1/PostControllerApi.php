@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\User;
+use App\Http\Controllers\V1\Models\Post;
+use App\Http\Controllers\V1\Models\User;
 
 class PostControllerApi extends Controller
 {
@@ -41,7 +41,7 @@ class PostControllerApi extends Controller
         ]);
 
         $post = Post::create($data);
-        return response()->json(['id' => $post->id], 201);
+        return response()->json(['id' => $post->id,'user_id' => $post->user_id,'title' => $post->title,'body' => $post->body,'comments' => $post->comments, 'created_at' => $post->created_at,'updated_at' => $post->updated_at], 201);
     }
 
     // PUT /api/posts/{id}
@@ -58,7 +58,7 @@ class PostControllerApi extends Controller
             'comments' => 'required|string',
         ]);
         $post->update($data);
-        return response()->json(['message' => 'Updated']);
+        return response()->json(['id' => $post->id,'user_id' => $post->user_id,'title' => $post->title,'body' => $post->body,'comments' => $post->comments, 'created_at' => $post->created_at,'updated_at' => $post->updated_at], 201);
     }
 
     // POST /api/comments/{id}
@@ -73,14 +73,14 @@ class PostControllerApi extends Controller
         ]);
         $post->comments = $data['comments'];
         $post->save();
-        return response()->json(['message' => 'comment added']);
+        return response()->json(['id' => $post->id,'user_id' => $post->user_id,'title' => $post->title,'body' => $post->body,'comments' => $post->comments, 'created_at' => $post->created_at,'updated_at' => $post->updated_at], 201);
     }
 
     // GET list comments
-    // api/comments
+    // /api/posts/comments
     public function listComments()
     {
-        return response()->json(Post::all(['id','title','body','comments']));
+        return response()->json(Post::all(['id','user_id','title','body','comments','created_at','updated_at']));
     }
     // DELETE /api/posts/{id}
     public function destroy($id)

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\V1\Auth\UserController;
+use App\Http\Controllers\V1\PostController;
+use App\Http\Controllers\V1\Auth\AuthController;
 
 // Redirect landing page '/' to login
 Route::get('/', function () {
