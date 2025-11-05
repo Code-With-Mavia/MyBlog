@@ -32,6 +32,9 @@ Built as a backend learning project following SOLID and best-practice Laravel de
 - Responsive, accessible UI (pure CSS, modern navigation patterns)
 - Strong usability (all buttons/links placed using real-world HCI research)
 - Easy to install, develop, and contribute to
+- User authentication (login/register, post ownership)
+- Comments system (per post)
+- REST API endpoints (for SPAs or mobile)
 
 ---
 
@@ -48,7 +51,7 @@ Built as a backend learning project following SOLID and best-practice Laravel de
 
 ```
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/laravel-blog.git
+git clone https://github.com/YOUR_USERNAME/MyBlog.git
 cd laravel-blog
 
 # Install PHP dependencies
@@ -75,8 +78,9 @@ php artisan serve
 ## 📦 Directory Layout
 
 - `resources/views/posts/` - Blade files for CRUD
-- `app/Http/Controllers/PostController.php` - Post logic
+- `app/Http/Controllers/Posts/PostController.php` - Post logic
 - `public/css/app.css` - Custom styles (move if needed)
+- `app/Http/Controllers/Posts/V1/PostControllerApi.php` - RESTAPIS logics for all (users,posts)
 - `.env` - Local environment database and app config
 
 ---
@@ -87,21 +91,40 @@ php artisan serve
 
 ---
 
-## 📝 Usage
+## 🌍 Web UI Endpoints
 
-- View all posts: `/posts`
-- Add post: `/posts/create`
-- Edit post: `/posts/{id}/edit`
-- Delete via post list
+| Action | URL | Description |
+|--------|-----|-------------|
+| View all posts | `/posts` | List all blog posts |
+| Create a new post | `/posts/create` | Add a new blog post |
+| Edit post | `/posts/{id}/edit` | Edit existing post |
+| Delete post | `/posts` (delete button) | Remove a post |
+
+---
+
+## 🔗 REST API Endpoints
+
+| Action | Method | Endpoint |
+|--------|---------|----------|
+| List all posts | `GET` | `/api/posts` |
+| Get specific post | `GET` | `/api/posts/{id}` |
+| Create a new post | `POST` | `/api/posts` |
+| Update post | `PUT` | `/api/posts/{id}` |
+| Delete post | `DELETE` | `/api/posts/{id}` |
+| Add comment | `POST` | `/api/comments/{id}` |
+| List all comments | `GET` | `/api/posts/comments` |
+| Get user’s posts | `GET` | `/api/users/{id}/posts` |
+| Get post author info | `GET` | `/api/posts/{id}/author` |
+| Recent users (10) | `GET` | `/api/users/recent` |
+| Search posts by title | `GET` | `/api/posts/find?query=keyword` |
+| Get user stats | `GET` | `/api/users/{id}/stats` |
+
 
 ---
 
 ## 🔮 Future Enhancements
 
-- User authentication (login/register, post ownership)
-- Comments system (per post)
 - Tagging and categories
-- REST API endpoints (for SPAs or mobile)
 - Advanced search, filtering, and post ordering
 - Pagination
 - Image upload support
