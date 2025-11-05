@@ -19,7 +19,7 @@ class PostControllerApi extends Controller
     {
         try 
         {
-            $posts = Post::all();
+            $posts = Post::select('id', 'user_id', 'title', 'comments', 'created_at','updated_at')->latest()->paginate(15);
             return response()->json($posts);
         } 
         catch (\Exception $e) 
@@ -113,7 +113,7 @@ class PostControllerApi extends Controller
     {
         try 
         {
-            $posts = Post::all(['id','user_id','title','body','comments','created_at','updated_at']);
+            $posts = Post::select(['id','user_id','title','body','comments','created_at','updated_at'])->latest()->paginate(10);
             return response()->json($posts);
         } 
         catch (\Exception $e) 
@@ -244,7 +244,7 @@ class PostControllerApi extends Controller
         } 
         catch (\Exception $e) 
         {
-            return response()->json(['error'=> 'Failed to fetch user stats. Please try again later'], 500);
+            return response()->json(['error' => 'Failed to fetch user stats. Please try again later'], 500);
         }
     }
 }
