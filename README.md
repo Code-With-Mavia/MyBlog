@@ -7,7 +7,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Code-With-Mavia/MyBlog/pulls)
 [![Open Issues](https://img.shields.io/github/issues/Code-With-Mavia/laravel-blog?color=orange)](https://github.com/Code-With-Mavia/MyBlog/issues)
-[![Last Commit](https://img.shields.io/github/last-commit/Code-With-Mavia/laravel-blog?color=purple)](https://github.com/Code-With-Mavia/MyBlog/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/Code-With-Mavia/MyBlog?color=purple)](https://github.com/Code-With-Mavia/MyBlog/commits/main)
 [![Code Style](https://img.shields.io/badge/code%20style-psr12-green.svg)](https://www.php-fig.org/psr/psr-12/)
 [![Coverage Status](https://img.shields.io/badge/coverage-100%25-brightgreen?logo=codecov)](#)
 [![Security](https://img.shields.io/badge/security-maintained-blue)](#)
