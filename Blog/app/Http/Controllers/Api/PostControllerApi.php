@@ -4,23 +4,26 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+use App\Models\User;
 
 class PostControllerApi extends Controller
 {
+    public function test()
+    {
+        return response()->json(['ok']);
+    }
+
     // GET /api/posts
-    // List all posts
     public function index()
     {
-        $posts = DB::table('posts')->get();
-        return response()->json($posts);
+        return response()->json(Post::all());
     }
 
     // GET /api/posts/{id}
-    // Get a single post by its ID
     public function show($id)
     {
-        $post = DB::table('posts')->find($id);
+        $post = Post::find($id);
         if (!$post) {
             return response()->json(['error' => 'Not found'], 404);
         }
@@ -28,26 +31,23 @@ class PostControllerApi extends Controller
     }
 
     // POST /api/posts
-    // Create a new post
     public function store(Request $request)
     {
         $data = $request->validate([
             'user_id' => 'required|integer|exists:users,id',
             'title' => 'required|string|max:255',
             'body'  => 'required|string',
+            'comments' => 'required|string',
         ]);
-        $data['created_at'] = now();
-        $data['updated_at'] = now();
 
-        $id = DB::table('posts')->insertGetId($data);
-        return response()->json(['id' => $id], 201);
+        $post = Post::create($data);
+        return response()->json(['id' => $post->id], 201);
     }
 
     // PUT /api/posts/{id}
-    // Update an existing post
     public function update(Request $request, $id)
     {
-        $post = DB::table('posts')->find($id);
+        $post = Post::find($id);
         if (!$post) {
             return response()->json(['error' => 'Not found'], 404);
         }
@@ -55,74 +55,89 @@ class PostControllerApi extends Controller
         $data = $request->validate([
             'title' => 'string|max:255',
             'body'  => 'string',
+            'comments' => 'required|string',
         ]);
-        $data['updated_at'] = now();
-
-        DB::table('posts')->where('id', $id)->update($data);
+        $post->update($data);
         return response()->json(['message' => 'Updated']);
     }
 
-    // DELETE /api/posts/{id}
-    // Delete a post
-    public function destroy($id)
+    // POST /api/comments/{id}
+    public function postComments(Request $request, $id)
     {
-        $deleted = DB::table('posts')->where('id', $id)->delete();
-        if (!$deleted) {
+        $post = Post::find($id);
+        if (!$post) {
             return response()->json(['error' => 'Not found'], 404);
         }
+        $data = $request->validate([
+            'comments' => 'required|string',
+        ]);
+        $post->comments = $data['comments'];
+        $post->save();
+        return response()->json(['message' => 'comment added']);
+    }
+
+    // GET list comments
+    // api/comments
+    public function listComments(Request $request)
+    {
+        return response()->json(Post::all(['id','title','body','comments']));
+    }
+    // DELETE /api/posts/{id}
+    public function destroy($id)
+    {
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json(['error' => 'Not found'], 404);
+        }
+        $post->delete();
         return response()->json(['message' => 'Deleted']);
     }
 
-    
-
     // GET /api/users/{id}/posts
-    // Get all posts belonging to a specific user
     public function userPosts($id)
     {
-        $posts = DB::table('posts')->where('user_id', $id)->get();
-        return response()->json($posts);
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        return response()->json($user->posts);
     }
 
     // GET /api/posts/{id}/author
-    // Get the author data for a specific post
     public function postAuthor($id)
     {
-        $post = DB::table('posts')->find($id);
-        if (!$post) return response()->json(['error' => 'Post not found'], 404);
-        $user = DB::table('users')->find($post->user_id);
+        $post = Post::find($id);
+        if (!$post) {
+            return response()->json(['error' => 'Post not found'], 404);
+        }
+        $user = $post->user;
         return $user ? response()->json($user) : response()->json(['error'=>'User not found'], 404);
     }
 
     // GET /api/users/recent
-    // Get the 10 most recently registered users
     public function recentUsers()
     {
-        $users = DB::table('users')->orderBy('created_at', 'desc')->limit(10)->get();
+        $users = User::latest()->limit(10)->get();
         return response()->json($users);
     }
 
-   // GET /api/posts/find?query=keyword
-    // Find posts by title containing a keyword (safe from route collision)
+    // GET /api/posts/find?query=keyword
     public function findPosts(Request $request)
     {
         $query = $request->query('query');
         if (empty($query)) {
             return response()->json([]);
         }
-        $posts = DB::table('posts')
-        ->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($query) . '%'])
-        ->get();
-
-        return response()->json($posts); // 200, always returns array
+        $posts = Post::whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($query) . '%'])->get();
+        return response()->json($posts);
     }
 
     // GET /api/users/{id}/stats
-    // Get simple stats for a user (name, email, post count, registration date)
     public function userStats($id)
     {
-        $user = DB::table('users')->find($id);
+        $user = User::find($id);
         if (!$user) return response()->json(['error'=>'User not found'], 404);
-        $count = DB::table('posts')->where('user_id', $id)->count();
+        $count = $user->posts()->count();
         return response()->json([
             'name' => $user->name,
             'email' => $user->email,
@@ -130,6 +145,4 @@ class PostControllerApi extends Controller
             'registered_at' => $user->created_at
         ]);
     }
-
 }
-?>

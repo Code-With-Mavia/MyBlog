@@ -29,7 +29,7 @@ Route::prefix('posts')->group(function () {
     // find posts by keyword in their title
     // GET /api/posts/find?query=keyword
     Route::get('/find', [ApiPostController::class, 'findPosts']);
-    
+
     // Get the author/user data for a specific post
     // GET /api/posts/{id}/author
     Route::get('/{id}/author', [ApiPostController::class, 'postAuthor']);
@@ -66,12 +66,13 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}/stats', [ApiPostController::class, 'userStats']);
 });
 
-// ================= COMMENTS ROUTES =================
+//  COMMENTS ROUTES 
 // If/when implementation comments API logic, group here:
-# Route::prefix('comments')->group(function () {
-#     // Add a comment to a post
-#     // POST /api/comments
-#     Route::post('/', [ApiPostController::class,'postComments']); 
-# });
+Route::prefix('comments')->group(function () {
+    Route::get('/', [ApiPostController::class,'listComments']);
+     // Add a comment to a post
+     // POST /api/comments
+     Route::post('/{id}', [ApiPostController::class,'postComments']); 
+ });
 
 ?>

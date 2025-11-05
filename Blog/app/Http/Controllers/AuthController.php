@@ -1,38 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $request->validate(
-[
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+        $data = $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|min:6'
         ]);
 
-        $userId = DB::table('users')->insertGetId(
-        [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'created_at' => now(),
-            'updated_at' => now()
+        $user = User::create([
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
 
-        session(['user_id' => $userId]);
+        session(['user_id' => $user->id]);
         return redirect('/posts');
     }
 
     public function login(Request $request)
     {
-        $user = DB::table('users')->where('email', $request->email)->first();
-        if ($user && Hash::check($request->password, $user->password)) 
-        {
+        // Use Eloquent with safe query and mass assign
+        $user = User::where('email', $request->email)->first();
+        if ($user && Hash::check($request->password, $user->password)) {
             session(['user_id' => $user->id]);
             return redirect('/posts');
         }
@@ -45,5 +43,6 @@ class AuthController extends Controller
         return redirect('/login');
     }
 }
+
 
 ?>

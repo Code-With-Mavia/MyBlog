@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
+
+use App\Models\User;
+
 class UserController extends Controller
 {
     public function getUser()
@@ -11,10 +13,9 @@ class UserController extends Controller
 
     public function getUserInfo()
     {
-        $result = DB::table('users') -> get();
-        // return view('users',['users'=>$result]);
-        return $result;
+        return User::all();
+        // For blade: return view('users', ['users' => User::all()]);
     }
-   
 }
+
 ?>

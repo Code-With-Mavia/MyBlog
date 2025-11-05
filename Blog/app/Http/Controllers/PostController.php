@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Post;
 
 class PostController extends Controller
 {
     public function index()
     {
         $userId = session('user_id');
-        $posts = DB::table('posts')->where('user_id', $userId)->get();
+        $posts = Post::where('user_id', $userId)->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -21,66 +21,54 @@ class PostController extends Controller
 
     public function addNewPost(Request $request)
     {
-        $request->validate(
- [
-            'title'   => 'required|string|max:255',
-            'body'    => 'required|string',
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'body'  => 'required|string',
+            'comments' => 'required|string',
         ]);
-
         $userId = session('user_id');
-        DB::table('posts')->insert(
-[
+        Post::create([
             'user_id'    => $userId,
-            'title'      => $request->input('title'),
-            'body'       => $request->input('body'),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'title'      => $data['title'],
+            'body'       => $data['body'],
+            'comments'   => $data['comments'],
         ]);
-
         return redirect()->route('posts.index');
     }
 
     public function showEditForm($id)
     {
         $userId = session('user_id');
-        $post = DB::table('posts')->where('id', $id)->where('user_id', $userId)->first();
+        $post = Post::where('id', $id)->where('user_id', $userId)->first();
         abort_if(!$post, 404);
         return view('posts.edit', compact('post'));
     }
 
     public function updatePost(Request $request, $id)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'body'  => 'required|string',
         ]);
-
         $userId = session('user_id');
-        $updated = DB::table('posts')
-            ->where('id', $id)
-            ->where('user_id', $userId)
-            ->update(
-    [
-                'title'      => $request->input('title'),
-                'body'       => $request->input('body'),
-                'updated_at' => now(),
-            ]);
-
-        abort_if(!$updated, 404);
+        $post = Post::where('id', $id)->where('user_id', $userId)->first();
+        abort_if(!$post, 404);
+        $post->update($data);
         return redirect()->route('posts.index');
     }
 
     public function deletePost($id)
     {
         $userId = session('user_id');
-        $deleted = DB::table('posts')->where('id', $id)->where('user_id', $userId)->delete();
-        abort_if(!$deleted, 404);
+        $post = Post::where('id', $id)->where('user_id', $userId)->first();
+        abort_if(!$post, 404);
+        $post->delete();
         return redirect()->route('posts.index');
     }
 
     public function listPosts()
     {
-        $posts = DB::table('posts')->get();
-        return $posts;
+        return Post::all();
     }
 }
+?>
