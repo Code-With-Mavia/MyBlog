@@ -51,7 +51,7 @@ Built as a backend learning project following SOLID and best-practice Laravel de
 
 ```
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/MyBlog.git
+git clone https://github.com/Code-With-Mavia/MyBlog.git
 cd laravel-blog
 
 # Install PHP dependencies
