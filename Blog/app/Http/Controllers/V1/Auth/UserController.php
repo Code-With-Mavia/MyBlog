@@ -14,8 +14,7 @@ class UserController extends Controller
 
     public function getUserInfo()
     {
-        return User::all();
-        // For blade: return view('users', ['users' => User::all()]);
+        return view('users', ['users' => User::all()]);
     }
 }
 

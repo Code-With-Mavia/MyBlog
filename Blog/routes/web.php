@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\V1\Auth\UserController;
 use App\Http\Controllers\V1\PostController;
 use App\Http\Controllers\V1\Auth\AuthController;
+use App\Http\Controllers\V1\CategoryController;
 
 // Redirect landing page '/' to login
 Route::get('/', function () {
@@ -38,6 +39,9 @@ Route::middleware(['user_session'])->group(function () {
     Route::get('/posts/{id}/edit', [PostController::class, 'showEditForm'])->name('posts.edit');
     Route::put('/posts/{id}', [PostController::class, 'updatePost'])->name('posts.update');
     Route::delete('/posts/{id}', [PostController::class, 'deletePost'])->name('posts.delete');
+    Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
+    Route::get('/categories/{id}',[CategoryController::class,'show'])->name('categories.show');
+
 });
 
 ?>
