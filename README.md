@@ -34,6 +34,7 @@ Built as a backend learning project following SOLID and best-practice Laravel de
 - Easy to install, develop, and contribute to
 - User authentication (login/register, post ownership)
 - Comments system (per post)
+- Posts per Categories 
 - REST API endpoints (for SPAs or mobile)
 
 ---
@@ -118,13 +119,15 @@ php artisan serve
 | Recent users (10) | `GET` | `/api/users/recent` |
 | Search posts by title | `GET` | `/api/posts/find?query=keyword` |
 | Get user stats | `GET` | `/api/users/{id}/stats` |
+| Get categories | `GET` | `/api/categories/` |
+| Get categories | `GET` | `/api/categories/{id}/` |
 
 
 ---
 
 ## 🔮 Future Enhancements
 
-- Tagging and categories
+- Tagging
 - Advanced search, filtering, and post ordering
 - Pagination
 - Image upload support
