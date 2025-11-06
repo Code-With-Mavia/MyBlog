@@ -120,7 +120,7 @@ php artisan serve
 | Search posts by title | `GET` | `/api/posts/find?query=keyword` |
 | Get user stats | `GET` | `/api/users/{id}/stats` |
 | Get categories | `GET` | `/api/categories/` |
-| Get categories | `GET` | `/api/categories/{id}/` |
+| Get categories with id | `GET` | `/api/categories/{id}/` |
 
 
 ---
