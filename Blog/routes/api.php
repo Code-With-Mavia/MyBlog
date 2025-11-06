@@ -2,8 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\V1\PostControllerApi as ApiPostController;
-
+use App\Http\Controllers\V1\Api\PostControllerApi as ApiPostController;
+use App\Http\Controllers\V1\Api\CategoryControllerApi as ApiCategoryController;
+use App\Http\Controllers\V1\Api\UserControllerApi as ApiUserController;
 //  AUTH & TEST ROUTES 
 Route::prefix('test')->group(function () {
     // Authenticated user info (Sanctum/JWT, for testing auth)
@@ -25,7 +26,6 @@ Route::prefix('posts')->group(function () {
     // List all posts
     // GET /api/posts
     Route::get('/', [ApiPostController::class, 'index']);
-
     
     // find posts by keyword in their title
     // GET /api/posts/find?query=keyword
@@ -58,27 +58,32 @@ Route::prefix('posts')->group(function () {
     Route::delete('/{id}', [ApiPostController::class, 'destroy']);
     
 });
+
 // CATEGORY ROUTES
 Route::prefix('categories')->group(function () {
-    
+
     // GET api/categories
-    Route::get('/', [ApiPostController::class,'categories']);
+    Route::get('/', [ApiCategoryController::class, 'listCategories']);
+
+    // GET api/categories/{id}
+    Route::get('/{id}', [ApiCategoryController::class, 'CategoryById']);
 
 });
+
 //  USERS ROUTES 
 Route::prefix('users')->group(function () {
 
     // List the 10 most recently registered users
     // GET /api/users/recent
-    Route::get('/recent', [ApiPostController::class, 'recentUsers']);
+    Route::get('/recent', [ApiUserController::class, 'recentUsers']);
 
     // Get all posts that belong to a specific user
     // GET /api/users/{id}/posts
-    Route::get('/{id}/posts', [ApiPostController::class, 'userPosts']);
+    Route::get('/{id}/posts', [ApiUserController::class, 'userPosts']);
 
     // Get simple stats (like post count) for a user
     // GET /api/users/{id}/stats
-    Route::get('/{id}/stats', [ApiPostController::class, 'userStats']);
+    Route::get('/{id}/stats', [ApiUserController::class, 'userStats']);
 });
 
 ?>

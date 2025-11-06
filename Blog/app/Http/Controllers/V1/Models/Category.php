@@ -15,9 +15,10 @@ class Category extends Model
     ];
 
     // Relationship: one category has many posts
-    public function posts()
+        public function posts()
     {
         return $this->hasMany(Post::class);
     }
+
 }
 ?>

@@ -68,7 +68,7 @@ class PostController extends Controller
 
     public function listPosts()
     {
-        return Post::all();
+        return Post::all()->latest()->paginate(10);
     }
 }
 ?>
